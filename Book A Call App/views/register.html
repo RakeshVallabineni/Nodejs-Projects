@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Now</title>
+    <link rel="stylesheet" href="./registerStyle.css" >
+    
+</head>
+<body>
+    
+    <form  id="form"  class="Form">
+        <h1 id="waterMark"> Call </h1>
+        <h2> Book a Call</h2>
+        <h6>Book a call slot and our representative will call you within 1hr of selected time</h6>
+        <p1 id="error" style="color:red"></p1>
+    <hr>
+    <p id="err" style="color:red"></p>
+    <label for="Name">Name:</label><br>
+
+    <input type="text" id="input" name="Name" class="Name"  >
+
+    <br>
+
+    <label for="Email"> Email:</label><br>
+
+    <input type="email" id="input" name="email" class="Email" >
+
+    <br>
+
+    <label for="Phone"> Phone:</label><br>
+
+    <input type="tel" id="input" name="phone" class="Phone"  placeholder="+91 123-456-7890">
+
+    <br>
+
+    <label for="Time"> Time for Call:</label><br>
+
+    <input type="date" id="Time" name="Time" class="Date" min="1947-08-15" &nbsp;>
+    <input type="time" id="Time" class="Time" name="Time"><br><br>
+
+    <button type="submit"    id="button" >Get  A  Call</button>
+    
+    <ul id="users"></ul>
+    <p id="output"></p>
+    
+   
+
+</form>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+<script src="animation.js"></script>
+
+
+</html>
