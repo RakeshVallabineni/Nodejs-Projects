@@ -16,10 +16,17 @@ const USER=sequelize.define("userdetails",{
         allowNull:false
     },
     phone:{
-        type:Sequelize.INTEGER
-        
+        type:Sequelize.STRING,
+        allowNull:false
     },
-    date:{type:Sequelize.DATE}
+    date:{
+        type:Sequelize.STRING,
+        allowNull:false
+    },
+    time:{
+        type:Sequelize.STRING,
+        allowNull:false
+    }
     
 
 

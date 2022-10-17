@@ -11,7 +11,7 @@ const router=require('./routes/product.js');
 const sequelize = require('./util/db.js');
 app.use(router);
 
-sequelize.sync();
+sequelize.sync({force:true});
 
 
 

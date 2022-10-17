@@ -22,3 +22,19 @@ table {
 body{
     background-color: dark;
 }
+
+#day{
+    text-align: center;
+    background-color: aqua;
+
+    height: 20px;
+}
+
+#pagination{
+    display: inline;
+    list-style: none;
+    text-align: center;
+    padding: 2% 2%;
+   
+}
+

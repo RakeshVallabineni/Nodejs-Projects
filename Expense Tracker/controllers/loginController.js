@@ -88,8 +88,10 @@ exports.delExpense=async (req,res,next)=>{
    }
 exports.ALLExpense=async (req,res,next)=>{
    try{
+      
    let response = await EXPENSE.findAll({where:{signupId:req.user.id}});
-    res.status(200).json({EXPENSE:response});
+   
+   res.status(200).json({EXPENSE:response});
    }
    catch(err){
       console.log(err);
@@ -98,13 +100,47 @@ exports.ALLExpense=async (req,res,next)=>{
 
 }
 
-exports.Expenses=async (req,res)=>{
+exports.allPages=async (req,res)=>{
 
-   let response=await EXPENSE.findAll({where:{signupId:req.user.id}});
 
-   res.status(200).json({res:response});
+   let buttonResponse=await EXPENSE.findAll({where:{signupId:req.user.id}});
+   
+   const length=buttonResponse.length;
+   console.log(length)
+   const pagesButtons=Math.ceil(length/10);
 
+   res.status(200).json({button:pagesButtons});
 }
+
+exports.Expenses=async (req,res)=>{
+   const requestBody=req.query.page
+   console.log(requestBody );
+   
+   let buttonResponse=await EXPENSE.findAll({where:{signupId:req.user.id}});
+   
+
+   let response=await EXPENSE.findAll({where:{signupId:req.user.id},offset:(requestBody-1)*10,limit:10});
+   
+   
+   console.log(req.query.page)
+   
+   
+      //,button:pagesButtons
+   res.status(200).json({res:response});
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 exports.forgotPassword=async (req,res,next)=>{
    try{

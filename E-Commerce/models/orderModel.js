@@ -15,6 +15,10 @@ const ORDER=sequelize.define('orderD',{
     price:{
         type:Sequelize.STRING,
         allowNull:false
+    },
+    image:{
+        type:Sequelize.STRING,
+        allowNull:false
     }
 
 });

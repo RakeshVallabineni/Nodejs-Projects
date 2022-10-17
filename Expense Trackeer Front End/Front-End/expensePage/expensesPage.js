@@ -1,26 +1,105 @@
 const table=document.getElementById('table');
 
-let todayDate=new Date
+const pagesList=document.getElementById('pagesList');
 
-let date=todayDate.getDate();
 
-let month=todayDate.getMonth();
-
-let year=todayDate.getFullYear();
-
-Dates=date+'-'+month+'-'+year;
 
 var total=0;
-
+var page=parseInt(window.location.search.split('=')[1])
+    
+//var page=1
 window.addEventListener('DOMContentLoaded',async (e)=>{
     e.preventDefault();
-    const token=localStorage.getItem('token');
-    let response =await axios.get('http://localhost:9000/Expenses',{headers:{'Authorization':token}});
+    
+    
+    addButtons();
+    display();
+   
+    
+    
+})
 
+
+async function addButtons(){
+    const token=localStorage.getItem('token');
+    let pageButtons=await axios.get(`http://localhost:9000/getPages`,{headers:{'Authorization':token}});
+    
+    for(i=0;i<pageButtons.data.button;i++){
+        const li=document.createElement('li');
+       const  button=document.createElement('button')
+       li.id='pagination'
+        button.innerText=`${i+1}`;
+        li.appendChild(button)
+        pagesList.appendChild(li)
+      
+    }
+    const pagination=document.querySelectorAll('#pagination');
+
+    for(i of pagination){
+       i.addEventListener('click',async (e)=>{
+          e.stopPropagation();
+           letpage=parseInt(e.target.innerText);
+           page=e.target.innerText
+           alert(e.target.innerText)
+           display()
+           
+          // let response =await axios.get(`http://localhost:9000/Expenses?page=${page}`,{headers:{'Authorization':token}});
+         
+        })
+        
+        }
+
+}
+
+async function display(){
+
+    const token=localStorage.getItem('token');
+    let response =await axios.get(`http://localhost:9000/Expenses?page=${page}`,{headers:{'Authorization':token}});
 
     for (i of response.data.res){
-    
+        displayExpenseItems(i)
 
+    }
+    let total_tr=document.createElement('tr');
+    total_tr.id='expenseTotal'
+    let total_th=document.createElement('th');
+    let total_t=document.createElement('th');
+    let total_=document.createElement('th');
+    let tota=document.createElement('th');
+    let tot=document.createElement('th');
+    total_th.innerHTML=total;
+    total_.innerHTML='Total Expense'
+    total_tr.appendChild(total_t);
+    total_tr.appendChild(total_);
+    total_tr.appendChild(tota);
+    total_tr.appendChild(tot);
+    total_tr.appendChild(total_th);
+    
+    table.appendChild(total_tr)
+   
+    
+  
+  
+    // const pagination=document.querySelectorAll('#pagination');
+    
+    // for(i of pagination){
+    // i.addEventListener('click',async (e)=>{
+      
+    //    page=parseInt(e.target.innerText);
+
+    //    alert(page)
+      
+    //   // let response =await axios.get(`http://localhost:9000/Expenses?page=${page}`,{headers:{'Authorization':token}});
+       
+    // })
+    
+    // }
+    // console.log(page)
+}
+
+
+function displayExpenseItems(i){
+    
     let date=i.createdAt.split('T')[0];
  
    
@@ -57,27 +136,60 @@ window.addEventListener('DOMContentLoaded',async (e)=>{
     
     table.appendChild(tr);
     
-    }
+    
+}
+
+
+// const pagination=document.querySelectorAll('#pagination');
+
+// // pagination.addEventListener('click',async (e)=>{
+// //    e.preventDefault();
+// //     const page=1
+// //     const token=localStorage.getItem('token');
+// //     let response=await axios.get(`http://localhost:9000/Expense?page=${page}`,{headers:{'Authorization':token}})
+// //     console.log(response);
+// //     for(i of response.data.res ){
+// //     displayExpenseItems(i)
+// //     }
+// // })
+
+// for(i of pagination){
+
+// i.addEventListener('click',async (e)=>{
+//    e.preventDefault();
+//    alert('sojnj')
+//    console.log()
+// })
+// }
+
+
+
+
+
+// const pagination=document.querySelectorAll('#pagination');
+
+//     // pagination.addEventListener('click',async (e)=>{
+//     //    e.preventDefault();
+//     //     const page=1
+//     //     const token=localStorage.getItem('token');
+//     //     let response=await axios.get(`http://localhost:9000/Expense?page=${page}`,{headers:{'Authorization':token}})
+//     //     console.log(response);
+//     //     for(i of response.data.res ){
+//     //     displayExpenseItems(i)
+//     //     }
+//     // })
+
+//     for(i of pagination){
+
+//     i.addEventListener('click',async (e)=>{
+//     e.preventDefault();
+    
+//     alert(e.target.innerText)
+    
+//     const token=localStorage.getItem('token');
+//     let response=await axios.get(`http://localhost:9000/PageExpense?page=${e.target.innerText}`,{headers:{'Authorization':token}})
+//     console.log(response);
     
 
-
-
-let total_tr=document.createElement('tr');
-total_tr.id='expenseTotal'
-let total_th=document.createElement('th');
-let total_t=document.createElement('th');
-let total_=document.createElement('th');
-let tota=document.createElement('th');
-let tot=document.createElement('th');
-total_th.innerHTML=total;
-total_.innerHTML='Total Expense for Day'
-total_tr.appendChild(total_t);
-total_tr.appendChild(total_);
-total_tr.appendChild(tota);
-total_tr.appendChild(tot);
-total_tr.appendChild(total_th);
-
-table.appendChild(total_tr)
-
-
-})
+//     })
+//     }

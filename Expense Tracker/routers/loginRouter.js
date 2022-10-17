@@ -23,4 +23,7 @@ loginRouter.get('/Expenses',userAuthentication.authenticate,loginController.Expe
 loginRouter.post('/forgotPassword/newPassword',loginController.resetPassword);
 
 
+loginRouter.get('/getPages',userAuthentication.authenticate,loginController.allPages);
+
+
 module.exports=loginRouter;

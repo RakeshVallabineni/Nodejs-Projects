@@ -7,14 +7,22 @@ createGroup.addEventListener('submit',async (e)=>{
     let creatingGroup={
         groupname:crInput.value
     }
+    crInput.value='';
     const token=localStorage.getItem('token');
     let response=await axios.post('http://localhost:8000/creatingGroup',creatingGroup);
-    console.log(response.data.res.id);
-    alert(response.data.message);
+    if(response){
+       alert(response.data.message);
+    }
+    else{
+        alert(response.data.message);
+    }
+  
     let GROUPID={
         groupid:response.data.res.id
     }
     let postResponse=await axios.post('http://localhost:8000/postcreatingGroup',GROUPID,{headers:{'Authorization':token}});
+    
+    
     }
     catch(err){
         console.log(err);
@@ -30,6 +38,7 @@ deletingGroup.addEventListener('submit',async (e)=>{
         let deleteGroup={
             groupName:delGroup.value
         }
+        delGroup.value=''
         const token=localStorage.getItem('token');
         let response=await axios.post('http://localhost:8000/deleteGroup',deleteGroup,{headers:{'Authorization':token}});
         console.log(response);
@@ -53,6 +62,8 @@ addMember.addEventListener('submit',async (e)=>{
             addUser:ADDEmailID.value,
             groupname:groupName.value
         }
+        ADDEmailID.value='';
+        groupName.value='';
         const token=localStorage.getItem('token');
         let response=await axios.post('http://localhost:8000/addUser',ADDUSER,{headers:{'Authorization':token}});
         alert(response.data.res);
@@ -74,6 +85,8 @@ deleteMember.addEventListener('submit',async (e)=>{
             groupMemberName:deleteGroupName.value,
             groupMemberId:deleteMembers.value
         }
+        deleteGroupName.value='';
+        deleteMembers.value='';
         const token=localStorage.getItem('token');
         let response=await axios.post('http://localhost:8000/deleteMember',deleteGroupMemberId,{headers:{'Authorization':token}});
         alert(response.data.res);
@@ -94,6 +107,8 @@ makeAdmin.addEventListener('submit',async (e)=>{
            adminGroupName:makeAdminGroup.value,
            adminGroupEmail:userEmailForGroup.value
         }
+        makeAdminGroup.value='';
+        userEmailForGroup.value='';
         const token=localStorage.getItem('token');
         let response=await axios.post('http://localhost:8000/makeUserAdmin',makeUserAdmin,{headers:{'Authorization':token}});
         alert(response.data.res);   

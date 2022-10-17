@@ -16,6 +16,15 @@ see.addEventListener('click',()=>{
    finalCart.classList.toggle('active');
 })
 
+window.addEventListener('DOMContentLoaded',async (e)=>{
+   
+    let response=await axios.get('http://localhost:5600/cartDetails');
+    console.log(response.data.res.image);
+  
+
+
+})
+
 
 
 
@@ -33,7 +42,7 @@ i.addEventListener('click',(event)=>{
    cartNumber+=1;
    cartN.innerHTML=cartNumber;
 
-   
+   //  /images/album1.png
 
    const li=document.createElement('li');
 
@@ -73,11 +82,12 @@ i.addEventListener('click',(event)=>{
    
    total+=parseFloat(event.target.parentElement.children[2].children[0].innerText);
    totalPrice.innerHTML=total;
-
+   console.log(event.target.parentElement.children[1].currentSrc)
   function postOrder(){
    let obj={
        itemName:event.target.parentElement.children[0].innerText,
-       price:event.target.parentElement.children[2].children[0].innerText
+       price:event.target.parentElement.children[2].children[0].innerText,
+       image:event.target.parentElement.children[1].currentSrc
       }
       
       axios.post('http://localhost:5600/orderDetails',obj).then((response)=>{console.log(response.data);del(response.data.ORDER.id)}).catch(err=>{console.log(err)});

@@ -103,38 +103,23 @@ async function displayListOfUsers(){
 
     const allUserResponse=await axios.post('http://localhost:8000/displayListOfUsers',GroupName,{headers:{'Authorization':token}});
 
-  //  console.log(allUserResponse.data.res.length)
-    
-    // for(i of allUserResponse.data.res){
-    //     for(j of allUserResponse.data.Admin){
-    //         if(i!=j){
-                
+ 
+    const Admins=allUserResponse.data.Admin;
 
-    //             const li=document.createElement('li');
-    //             li.appendChild(document.createTextNode(`${i} `));
-    //             userList.appendChild(li);
-
-    //             const li=document.createElement('li');
-    //             li.appendChild(document.createTextNode(` ${i} *`));
-             
-    //             userList.appendChild(li);
-    //         }
-            
-    //     }
-    
-    // }
-    var k=0;
-    const length=allUserResponse.data.Admin.length;
-  
-    
-    for(i of allUserResponse.data.Admin){
-        const li=document.createElement('li');
-        li.appendChild(document.createTextNode(` ${i} * `));
-                 
-        userList.appendChild(li);
-        
+    for(i of allUserResponse.data.res){
+        if(Admins.includes(i)){
+            const li=document.createElement('li');
+            li.appendChild(document.createTextNode(` ${i} * `));
+                    
+            userList.appendChild(li);
+        }
+        else{
+            const li=document.createElement('li');
+            li.appendChild(document.createTextNode(` ${i}  `));
+                    
+            userList.appendChild(li);
+        }
     }
-
     
 
 

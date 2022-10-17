@@ -5,31 +5,26 @@ const Name=document.querySelector('.Name');
 const Email=document.querySelector('.Email');
 const Phone=document.querySelector('.Phone');
 const Dates=document.querySelector('.Date');
+const Time=document.querySelector('.Time');
 const usersD=document.querySelector('#users');
 const p=document.querySelector('#err');
 
 Form.addEventListener('submit',(event)=>{saveUser(event)});
  async function saveUser(e){
     try{
-    e.preventDefault();
-    if (Name.value==='' || Email.value==='' || Phone.value==='' || Dates.value===''){
-        p.innerHTML="* Please enter the details";
-        setTimeout(()=>{p.remove()},2000);
-    }
-    else{
-        
+  
         const userDetails={
             
-          UName:Name.value,
-          UEmail:Email.value,
-          UPhone:Phone.value,
-          UDates:Dates.value
+          name:Name.value,
+          email:Email.value,
+          phone:Phone.value,
+          date:Dates.value,
+          time:Time.value
         }
  
        let response=await  axios.post('http://localhost:4900/register',userDetails);
-       showBookedDetails(response.data.USER.id);
-       
-       console.log(response);
+       showBookedDetails(userDetails);
+
        Name.value='';
 
        Email.value='';
@@ -39,21 +34,29 @@ Form.addEventListener('submit',(event)=>{saveUser(event)});
        Dates.values="";
          
          
-    }
+    
 }
 catch(err){
     console.log(err);
 }
     
-    
+
 }
+
+window.addEventListener('DOMContentLoaded',async (e)=>{
+    let response=await axios.get('http://localhost:4900/registerDetails')
+    for( i of response.data.res ){
+    showBookedDetails(i);
+    }
+
+})
 
 function showBookedDetails(display){
     
     const li=document.createElement('li');
-    li.id=display;
+    li.id=display.id;
     li.style.color='green';
-    const litextNode=document.createTextNode(`Name: ${Name.value} Email: ${Email.value} PhoneNumber: ${Phone.value} Dates: ${Dates.value}`);
+    const litextNode=document.createTextNode(`Name: ${display.name} : Email: ${display.email} : PhoneNumber: ${display.phone} : Dates: ${display.date} :  Time: ${display.time}`);
     li.appendChild(litextNode);
     const Edit=document.createElement('button');
     Edit.className='EDIT';
@@ -69,37 +72,52 @@ function showBookedDetails(display){
     li.appendChild(DELETE);
     usersD.appendChild(li);
 
-    updateUser(li);
+    
 
 }
 
 
  function deleteUser(){
-    try{
-    usersD.addEventListener('click', D);
-    async function D(e){
-    if(e.target.className==='DELETE')
+   
+    usersD.addEventListener('click',async (e)=>{
+
+    if(e.target.className==='DELETE'){
+
     usersD.removeChild(e.target.parentNode);
-   const response=await axios.delete(`http://localhost:4900/success/delete/${e.target.parentElement.id}`);
-}
+
+
+
+    const response=await axios.delete(`http://localhost:4900/success/delete/${e.target.parentElement.id}`);
     }
-catch(err){
-    console.log(err);
-}
+})
+    
+
 
 }
+
 deleteUser()
 
-
-function updateUser(ed){
+function updateUser(){
    
-     usersD.addEventListener('click',D);
-    function D(e){
-     if(e.target.className==='EDIT'){
+    usersD.addEventListener('click',async(e)=>{
+        e.preventDefault();
 
-     console.log(ed);
+        let divide=e.target.parentElement.innerText.split(':')
+        
+        p.innerHTML="* Please Edit the details";
+        
+        setTimeout(()=>{p.remove()},3000);
+        
+        Name.value=divide[1]
+        Email.value=divide[3]
+        Phone.value=divide[5]
+        usersD.removeChild(e.target.parentNode);
+        const response=await axios.delete(`http://localhost:4900/success/delete/${e.target.parentElement.id}`);
+       
      
-    }
-}
+
+    })
 
 }
+
+updateUser();

@@ -30,7 +30,11 @@ try{
     UEmail:Email.value,
     UPassword:password.value
    }
-
+   firstName.value='',
+   lastName.value='',
+   userId.value='',
+   Email.value='',
+   password.value=''
    let response=await axios.post('http://localhost:8000/userSignUp',userDetails);
    
    console.log(response);

@@ -46,3 +46,11 @@ function displayGroups(displayName){
 }
 }
 
+const Logout=document.getElementById('logout');
+Logout.addEventListener('click',(e)=>{
+    e.preventDefault();
+    localStorage.clear();
+    sessionStorage.clear();
+    alert('you are being logging out')
+    window.location.href='../LoginPage/login.html'
+})

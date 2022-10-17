@@ -5,23 +5,40 @@ const USER=require('../models/user.js');
 const USERGROUPS=require('../models/usergroups.js');
 
 exports.createGroup=async (req,res,next)=>{
+    try{
     const requestBody=req.body;
-    console.log(req.userResponse)
+    const findingGroupID=await GROUPS.findOne({where:{groupname:requestBody.groupname}});
+    if(findingGroupID==null){
+
    let response=await GROUPS.create({
     groupname:requestBody.groupname
     })
     res.status(200).json({res:response,message:'successfully created'});
-  
+     
+    }
+    else{
+        console.log('helo world')
+        res.status(200).json({message:'Group Exist '});
+    }
+}
+catch(err){
+   console.log(err);
+}
 } 
 
 
 exports.postCreatingGroup=async (req,res,next)=>{
+    try{
     const requestBody=req.body;
     let response= await USERGROUPS.create({
         userId:req.userResponse,
         groupId:requestBody.groupid
     })
     const defaultAdmin=await USERGROUPS.update({admin:true},{where:{userId:req.userResponse}});
+}
+    catch(err){
+        console.log(err);
+     }
 }
 
 exports.deleteGroup=async (req,res,next)=>{

@@ -19,28 +19,28 @@
     <p id="err" style="color:red"></p>
     <label for="Name">Name:</label><br>
 
-    <input type="text" id="input" name="Name" class="Name"  >
+    <input type="text" id="input" name="Name" class="Name" required  >
 
     <br>
 
     <label for="Email"> Email:</label><br>
 
-    <input type="email" id="input" name="email" class="Email" >
+    <input type="email" id="input" name="email" class="Email" required >
 
     <br>
 
     <label for="Phone"> Phone:</label><br>
 
-    <input type="tel" id="input" name="phone" class="Phone"  placeholder="+91 123-456-7890">
+    <input type="tel" id="input" name="phone" class="Phone"  placeholder="+91 123-456-7890" required>
 
     <br>
 
     <label for="Time"> Time for Call:</label><br>
 
-    <input type="date" id="Time" name="Time" class="Date" min="1947-08-15" &nbsp;>
-    <input type="time" id="Time" class="Time" name="Time"><br><br>
+    <input type="date" id="Time" name="Time" class="Date" min="1947-08-15" &nbsp; required>
+    <input type="time" id="Time" class="Time" name="Time" required><br><br>
 
-    <button type="submit"    id="button" >Get  A  Call</button>
+    <input type="submit"    id="button" value="Get  A  Call" ></input>
     
     <ul id="users"></ul>
     <p id="output"></p>
@@ -50,8 +50,9 @@
 </form>
 
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 <script src="animation.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+
 
 
 </html>
